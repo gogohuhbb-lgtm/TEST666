@@ -532,4 +532,4 @@ function XorixHub:CreateWindow(titleText)
     return Window
 end
 
-return XorixHub 
+return XorixHub
