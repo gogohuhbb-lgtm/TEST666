@@ -54,11 +54,12 @@ function XorixHub:CreateWindow(titleText)
     Constraint.MinSize = Vector2.new(320, 260)
     Constraint.MaxSize = Vector2.new(620, 400)
 
-    Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 12)
+    Instance.new("UICorner", Main).CornerRadius = UDim.new(0, 14)
 
     local MainStroke = Instance.new("UIStroke", Main)
     MainStroke.Color = Theme.AccentCyan
     MainStroke.Thickness = 1.8
+    MainStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
     task.spawn(function()
         while Main and Main.Parent do
@@ -68,6 +69,31 @@ function XorixHub:CreateWindow(titleText)
             task.wait(1.8)
         end
     end)
+
+    local GlossReflection = Instance.new("Frame")
+    GlossReflection.Name = "GlossReflection"
+    GlossReflection.Size = UDim2.new(1, 0, 0.45, 0)
+    GlossReflection.Position = UDim2.new(0, 0, 0, 0)
+    GlossReflection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    GlossReflection.BorderSizePixel = 0
+    GlossReflection.ZIndex = 10
+    GlossReflection.Active = false
+    GlossReflection.Parent = Main
+
+    Instance.new("UICorner", GlossReflection).CornerRadius = UDim.new(0, 14)
+
+    local GlossGradient = Instance.new("UIGradient", GlossReflection)
+    GlossGradient.Rotation = 65
+    GlossGradient.Color = ColorSequence.new({
+        ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
+        ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 229, 255)),
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
+    })
+    GlossGradient.Transparency = NumberSequence.new({
+        NumberSequenceKeypoint.new(0, 0.93),
+        NumberSequenceKeypoint.new(0.4, 0.96),
+        NumberSequenceKeypoint.new(1, 1)
+    })
 
     local ToggleBtn = Instance.new("ImageButton")
     ToggleBtn.Name = "OpenCloseToggle"
@@ -119,8 +145,9 @@ function XorixHub:CreateWindow(titleText)
     local Header = Instance.new("Frame")
     Header.Name = "Header"
     Header.Size = UDim2.new(1, 0, 0, 52)
-    Header.BackgroundColor3 = Theme.SidebarBG
+    Header.BackgroundTransparency = 1
     Header.BorderSizePixel = 0
+    Header.ZIndex = 2
     Header.Parent = Main
 
     local HeaderDivider = Instance.new("Frame")
@@ -128,6 +155,7 @@ function XorixHub:CreateWindow(titleText)
     HeaderDivider.Position = UDim2.new(0, 0, 1, -1)
     HeaderDivider.BackgroundColor3 = Theme.StrokeDark
     HeaderDivider.BorderSizePixel = 0
+    HeaderDivider.ZIndex = 2
     HeaderDivider.Parent = Header
 
     local IconFrame = Instance.new("Frame")
@@ -135,6 +163,7 @@ function XorixHub:CreateWindow(titleText)
     IconFrame.Position = UDim2.new(0, 10, 0.5, 0)
     IconFrame.AnchorPoint = Vector2.new(0, 0.5)
     IconFrame.BackgroundColor3 = Theme.CardBG
+    IconFrame.ZIndex = 3
     IconFrame.Parent = Header
     Instance.new("UICorner", IconFrame).CornerRadius = UDim.new(0, 8)
 
@@ -155,6 +184,7 @@ function XorixHub:CreateWindow(titleText)
     IconImage.BackgroundTransparency = 1
     IconImage.Image = Theme.IconID
     IconImage.ScaleType = Enum.ScaleType.Fit
+    IconImage.ZIndex = 4
     IconImage.Parent = IconFrame
 
     local TitleLabel = Instance.new("TextLabel")
@@ -166,6 +196,7 @@ function XorixHub:CreateWindow(titleText)
     TitleLabel.TextSize = 15
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
     TitleLabel.BackgroundTransparency = 1
+    TitleLabel.ZIndex = 3
     TitleLabel.Parent = Header
 
     local dragging, dragStart, startPos
@@ -197,8 +228,9 @@ function XorixHub:CreateWindow(titleText)
     Sidebar.Name = "Sidebar"
     Sidebar.Size = UDim2.new(0, 130, 1, -52)
     Sidebar.Position = UDim2.new(0, 0, 0, 52)
-    Sidebar.BackgroundColor3 = Theme.SidebarBG
+    Sidebar.BackgroundTransparency = 1
     Sidebar.BorderSizePixel = 0
+    Sidebar.ZIndex = 2
     Sidebar.Parent = Main
 
     local SidebarLine = Instance.new("Frame")
@@ -206,6 +238,7 @@ function XorixHub:CreateWindow(titleText)
     SidebarLine.Position = UDim2.new(1, -1, 0, 0)
     SidebarLine.BackgroundColor3 = Theme.StrokeDark
     SidebarLine.BorderSizePixel = 0
+    SidebarLine.ZIndex = 2
     SidebarLine.Parent = Sidebar
 
     local TabContainer = Instance.new("ScrollingFrame")
@@ -218,6 +251,7 @@ function XorixHub:CreateWindow(titleText)
     TabContainer.AutomaticCanvasSize = Enum.AutomaticSize.Y
     TabContainer.ScrollingEnabled = true
     TabContainer.Active = true
+    TabContainer.ZIndex = 3
     TabContainer.Parent = Sidebar
 
     local TabList = Instance.new("UIListLayout", TabContainer)
@@ -229,6 +263,7 @@ function XorixHub:CreateWindow(titleText)
     ContentArea.Size = UDim2.new(1, -130, 1, -52)
     ContentArea.Position = UDim2.new(0, 130, 0, 52)
     ContentArea.BackgroundTransparency = 1
+    ContentArea.ZIndex = 2
     ContentArea.Parent = Main
 
     function Window:CreateTab(tabName)
@@ -244,6 +279,7 @@ function XorixHub:CreateWindow(titleText)
         TabBtn.Font = Enum.Font.GothamMedium
         TabBtn.TextSize = 13
         TabBtn.AutoButtonColor = false
+        TabBtn.ZIndex = 3
         TabBtn.Parent = TabContainer
 
         Instance.new("UICorner", TabBtn).CornerRadius = UDim.new(0, 8)
@@ -253,6 +289,7 @@ function XorixHub:CreateWindow(titleText)
         TabGlowLine.Position = UDim2.new(0, 3, 0.5, -9)
         TabGlowLine.BackgroundColor3 = Theme.AccentCyan
         TabGlowLine.BackgroundTransparency = 1
+        TabGlowLine.ZIndex = 4
         TabGlowLine.Parent = TabBtn
         Instance.new("UICorner", TabGlowLine).CornerRadius = UDim.new(1, 0)
 
@@ -267,6 +304,7 @@ function XorixHub:CreateWindow(titleText)
         Page.AutomaticCanvasSize = Enum.AutomaticSize.Y
         Page.ScrollingEnabled = true
         Page.Active = true
+        Page.ZIndex = 3
         Page.Parent = ContentArea
 
         local PageList = Instance.new("UIListLayout", Page)
@@ -313,6 +351,7 @@ function XorixHub:CreateWindow(titleText)
             SecLabel.TextSize = 11
             SecLabel.TextXAlignment = Enum.TextXAlignment.Left
             SecLabel.BackgroundTransparency = 1
+            SecLabel.ZIndex = 3
             SecLabel.Parent = Page
         end
 
@@ -327,6 +366,7 @@ function XorixHub:CreateWindow(titleText)
             Btn.Font = Enum.Font.GothamMedium
             Btn.TextSize = 13
             Btn.AutoButtonColor = false
+            Btn.ZIndex = 3
             Btn.Parent = Page
 
             Instance.new("UICorner", Btn).CornerRadius = UDim.new(0, 8)
@@ -366,6 +406,7 @@ function XorixHub:CreateWindow(titleText)
             ToggleBtn.TextSize = 13
             ToggleBtn.TextXAlignment = Enum.TextXAlignment.Left
             ToggleBtn.AutoButtonColor = false
+            ToggleBtn.ZIndex = 3
             ToggleBtn.Parent = Page
 
             Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 8)
@@ -376,6 +417,7 @@ function XorixHub:CreateWindow(titleText)
             SwitchTrack.Size = UDim2.new(0, 36, 0, 20)
             SwitchTrack.Position = UDim2.new(1, -46, 0.5, -10)
             SwitchTrack.BackgroundColor3 = enabled and Theme.AccentCyan or Color3.fromRGB(35, 42, 54)
+            SwitchTrack.ZIndex = 4
             SwitchTrack.Parent = ToggleBtn
             Instance.new("UICorner", SwitchTrack).CornerRadius = UDim.new(1, 0)
 
@@ -383,6 +425,7 @@ function XorixHub:CreateWindow(titleText)
             Knob.Size = UDim2.new(0, 16, 0, 16)
             Knob.Position = enabled and UDim2.new(1, -18, 0.5, -8) or UDim2.new(0, 2, 0.5, -8)
             Knob.BackgroundColor3 = Theme.TextMain
+            Knob.ZIndex = 5
             Knob.Parent = SwitchTrack
             Instance.new("UICorner", Knob).CornerRadius = UDim.new(1, 0)
 
@@ -403,6 +446,7 @@ function XorixHub:CreateWindow(titleText)
             local SliderFrame = Instance.new("Frame")
             SliderFrame.Size = UDim2.new(1, 0, 0, 48)
             SliderFrame.BackgroundColor3 = Theme.CardBG
+            SliderFrame.ZIndex = 3
             SliderFrame.Parent = Page
 
             Instance.new("UICorner", SliderFrame).CornerRadius = UDim.new(0, 8)
@@ -417,6 +461,7 @@ function XorixHub:CreateWindow(titleText)
             Label.TextSize = 13
             Label.TextXAlignment = Enum.TextXAlignment.Left
             Label.BackgroundTransparency = 1
+            Label.ZIndex = 4
             Label.Parent = SliderFrame
 
             local ValLabel = Instance.new("TextLabel")
@@ -428,18 +473,21 @@ function XorixHub:CreateWindow(titleText)
             ValLabel.TextSize = 12
             ValLabel.TextXAlignment = Enum.TextXAlignment.Right
             ValLabel.BackgroundTransparency = 1
+            ValLabel.ZIndex = 4
             ValLabel.Parent = SliderFrame
 
             local TrackBG = Instance.new("Frame")
             TrackBG.Size = UDim2.new(1, -24, 0, 6)
             TrackBG.Position = UDim2.new(0, 12, 1, -12)
             TrackBG.BackgroundColor3 = Color3.fromRGB(35, 42, 54)
+            TrackBG.ZIndex = 4
             TrackBG.Parent = SliderFrame
             Instance.new("UICorner", TrackBG)
 
             local TrackFill = Instance.new("Frame")
             TrackFill.Size = UDim2.new((default - min) / (max - min), 0, 1, 0)
             TrackFill.BackgroundColor3 = Theme.AccentCyan
+            TrackFill.ZIndex = 5
             TrackFill.Parent = TrackBG
             Instance.new("UICorner", TrackFill)
 
