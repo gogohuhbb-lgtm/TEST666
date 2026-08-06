@@ -76,7 +76,7 @@ function XorixHub:CreateWindow(titleText)
     GlossReflection.Position = UDim2.new(0, 0, 0, 0)
     GlossReflection.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     GlossReflection.BorderSizePixel = 0
-    GlossReflection.ZIndex = 10
+    GlossReflection.ZIndex = 1
     GlossReflection.Active = false
     GlossReflection.Parent = Main
 
@@ -90,8 +90,8 @@ function XorixHub:CreateWindow(titleText)
         ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 255, 255))
     })
     GlossGradient.Transparency = NumberSequence.new({
-        NumberSequenceKeypoint.new(0, 0.93),
-        NumberSequenceKeypoint.new(0.4, 0.96),
+        NumberSequenceKeypoint.new(0, 0.94),
+        NumberSequenceKeypoint.new(0.4, 0.97),
         NumberSequenceKeypoint.new(1, 1)
     })
 
@@ -248,7 +248,6 @@ function XorixHub:CreateWindow(titleText)
     TabContainer.BackgroundTransparency = 1
     TabContainer.ScrollBarThickness = 0
     TabContainer.CanvasSize = UDim2.new(0, 0, 0, 0)
-    TabContainer.AutomaticCanvasSize = Enum.AutomaticSize.Y
     TabContainer.ScrollingEnabled = true
     TabContainer.Active = true
     TabContainer.ZIndex = 3
@@ -257,6 +256,10 @@ function XorixHub:CreateWindow(titleText)
     local TabList = Instance.new("UIListLayout", TabContainer)
     TabList.Padding = UDim.new(0, 6)
     TabList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+    TabList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        TabContainer.CanvasSize = UDim2.new(0, 0, 0, TabList.AbsoluteContentSize.Y + 10)
+    end)
 
     local ContentArea = Instance.new("Frame")
     ContentArea.Name = "ContentArea"
@@ -301,7 +304,6 @@ function XorixHub:CreateWindow(titleText)
         Page.ScrollBarThickness = 3
         Page.ScrollBarImageColor3 = Theme.AccentCyan
         Page.CanvasSize = UDim2.new(0, 0, 0, 0)
-        Page.AutomaticCanvasSize = Enum.AutomaticSize.Y
         Page.ScrollingEnabled = true
         Page.Active = true
         Page.ZIndex = 3
@@ -316,6 +318,10 @@ function XorixHub:CreateWindow(titleText)
         PagePadding.PaddingBottom = UDim.new(0, 10)
         PagePadding.PaddingLeft = UDim.new(0, 10)
         PagePadding.PaddingRight = UDim.new(0, 10)
+
+        PageList:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+            Page.CanvasSize = UDim2.new(0, 0, 0, PageList.AbsoluteContentSize.Y + 25)
+        end)
 
         TabBtn.MouseButton1Click:Connect(function()
             for _, c in pairs(ContentArea:GetChildren()) do
@@ -344,7 +350,7 @@ function XorixHub:CreateWindow(titleText)
 
         function Tab:CreateSection(sectName)
             local SecLabel = Instance.new("TextLabel")
-            SecLabel.Size = UDim2.new(1, 0, 0, 20)
+            SecLabel.Size = UDim2.new(1, -10, 0, 20)
             SecLabel.Text = string.upper(sectName)
             SecLabel.Font = Enum.Font.GothamBold
             SecLabel.TextColor3 = Theme.AccentCyan
@@ -359,7 +365,7 @@ function XorixHub:CreateWindow(titleText)
             callback = callback or function() end
 
             local Btn = Instance.new("TextButton")
-            Btn.Size = UDim2.new(1, 0, 0, 38)
+            Btn.Size = UDim2.new(1, -10, 0, 38)
             Btn.BackgroundColor3 = Theme.CardBG
             Btn.Text = text
             Btn.TextColor3 = Theme.TextMain
@@ -376,14 +382,14 @@ function XorixHub:CreateWindow(titleText)
 
             Btn.InputBegan:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                    CreateTween(Btn, 0.1, {Size = UDim2.new(0.98, 0, 0, 36)})
+                    CreateTween(Btn, 0.1, {Size = UDim2.new(0.98, -10, 0, 36)})
                     CreateTween(Stroke, 0.1, {Color = Theme.AccentCyan})
                 end
             end)
 
             Btn.InputEnded:Connect(function(input)
                 if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                    CreateTween(Btn, 0.15, {Size = UDim2.new(1, 0, 0, 38)})
+                    CreateTween(Btn, 0.15, {Size = UDim2.new(1, -10, 0, 38)})
                     CreateTween(Stroke, 0.3, {Color = Theme.StrokeDark})
                 end
             end)
@@ -398,7 +404,7 @@ function XorixHub:CreateWindow(titleText)
             callback = callback or function() end
 
             local ToggleBtn = Instance.new("TextButton")
-            ToggleBtn.Size = UDim2.new(1, 0, 0, 40)
+            ToggleBtn.Size = UDim2.new(1, -10, 0, 40)
             ToggleBtn.BackgroundColor3 = Theme.CardBG
             ToggleBtn.Text = "  " .. text
             ToggleBtn.TextColor3 = Theme.TextMain
@@ -444,7 +450,7 @@ function XorixHub:CreateWindow(titleText)
             callback = callback or function() end
 
             local SliderFrame = Instance.new("Frame")
-            SliderFrame.Size = UDim2.new(1, 0, 0, 48)
+            SliderFrame.Size = UDim2.new(1, -10, 0, 48)
             SliderFrame.BackgroundColor3 = Theme.CardBG
             SliderFrame.ZIndex = 3
             SliderFrame.Parent = Page
@@ -526,4 +532,4 @@ function XorixHub:CreateWindow(titleText)
     return Window
 end
 
-return XorixHub
+return XorixHub 
