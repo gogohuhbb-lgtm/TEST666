@@ -1,42 +1,103 @@
--- Fetch Majesty V2 UI Library
-local Majesty = loadstring(game:HttpGet("https://raw.githubusercontent.com/gogohuhbb-lgtm/TEST666/refs/heads/main/Main.lua"))()
+-- Fetch Xorix Hub UI Library
+local XorixHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/gogohuhbb-lgtm/TEST666/refs/heads/main/Main.lua"))()
 
--- 1. Create Window
-local Window = Majesty:CreateWindow("MAJESTY V2 | Combat Pro")
+-- 1. Create Main Window
+local Window = XorixHub:CreateWindow("XORIX HUB")
 
--- 2. Create Tabs
-local MainTab = Window:CreateTab("Combat")
-local VisualsTab = Window:CreateTab("Visuals")
+-- 2. Initialize Required Tabs
+local MainTab     = Window:CreateTab("Main")
+local CombatTab   = Window:CreateTab("Combat")
+local VisualsTab  = Window:CreateTab("Visuals")
 local SettingsTab = Window:CreateTab("Settings")
+local MiscTab     = Window:CreateTab("Misc")
 
--- 3. Add Elements to Combat
-MainTab:CreateSection("Killer Cheats")
-MainTab:CreateButton("Kill All Players", function()
-    print("Executing Kill All...")
+---------------------------------------------------------
+-- 1. MAIN TAB
+---------------------------------------------------------
+MainTab:CreateSection("Main Section")
+
+MainTab:CreateSlider("WalkSpeed", 16, 250, 16, function(value)
+    -- Code here
 end)
 
-MainTab:CreateToggle("Auto-Farm Coins", function(state)
-    print("Auto-farm is now:", state)
+MainTab:CreateSlider("JumpPower", 50, 300, 50, function(value)
+    -- Code here
 end)
 
-MainTab:CreateSection("Movement")
-MainTab:CreateSlider("WalkSpeed", 16, 250, 16, function(val)
-    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = val
+MainTab:CreateToggle("Example Toggle", false, function(state)
+    -- Code here
 end)
 
--- 4. Add Elements to Visuals
-VisualsTab:CreateSection("Player ESP")
-VisualsTab:CreateToggle("Enable Tracers", function(state)
-    print("Tracers:", state)
+MainTab:CreateButton("Example Button", function()
+    -- Code here
 end)
 
-VisualsTab:CreateSlider("ESP Distance", 50, 5000, 1000, function(v)
-    print("Distance set to:", v)
+---------------------------------------------------------
+-- 2. COMBAT TAB
+---------------------------------------------------------
+CombatTab:CreateSection("Combat Section")
+
+CombatTab:CreateToggle("Example Combat Toggle", false, function(state)
+    -- Code here
 end)
 
--- 5. Add Elements to Settings
+CombatTab:CreateSlider("Example Combat Slider", 1, 100, 50, function(value)
+    -- Code here
+end)
+
+CombatTab:CreateButton("Example Combat Button", function()
+    -- Code here
+end)
+
+---------------------------------------------------------
+-- 3. VISUALS TAB
+---------------------------------------------------------
+VisualsTab:CreateSection("Visuals Section")
+
+VisualsTab:CreateToggle("Example Visual Toggle", false, function(state)
+    -- Code here
+end)
+
+VisualsTab:CreateSlider("Example Visual Slider", 1, 100, 50, function(value)
+    -- Code here
+end)
+
+VisualsTab:CreateButton("Example Visual Button", function()
+    -- Code here
+end)
+
+---------------------------------------------------------
+-- 4. SETTINGS TAB
+---------------------------------------------------------
+SettingsTab:CreateSection("Settings Section")
+
+SettingsTab:CreateToggle("Example Setting Toggle", false, function(state)
+    -- Code here
+end)
+
+SettingsTab:CreateSlider("Example Setting Slider", 1, 100, 50, function(value)
+    -- Code here
+end)
+
 SettingsTab:CreateButton("Unload UI", function()
-    game.Players.LocalPlayer.PlayerGui.Majesty_V2:Destroy()
+    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("XorixHub_UI") then
+        game.Players.LocalPlayer.PlayerGui.XorixHub_UI:Destroy()
+    end
 end)
 
-print("Majesty UI Successfully Loaded!")
+---------------------------------------------------------
+-- 5. MISC TAB
+---------------------------------------------------------
+MiscTab:CreateSection("Misc Section")
+
+MiscTab:CreateToggle("Example Misc Toggle", false, function(state)
+    -- Code here
+end)
+
+MiscTab:CreateSlider("Example Misc Slider", 1, 100, 50, function(value)
+    -- Code here
+end)
+
+MiscTab:CreateButton("Rejoin Server", function()
+    -- Code here
+end)
