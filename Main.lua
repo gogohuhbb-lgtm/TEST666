@@ -14,7 +14,7 @@ local Theme = {
     TextMain = Color3.fromRGB(240, 245, 250),
     TextMuted = Color3.fromRGB(120, 135, 155),
     StrokeDark = Color3.fromRGB(28, 36, 48),
-    IconID = "rbxassetid://114044975848151",
+    IconID = "rbxassetid://110129510947911",
     ToggleIconID = "rbxassetid://110129510947911"
 }
 
