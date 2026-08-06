@@ -2,39 +2,35 @@
 local XorixHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/gogohuhbb-lgtm/TEST666/refs/heads/main/Main.lua"))()
 
 -- 1. Create Main Window
-local Window = XorixHub:CreateWindow("XORIX HUB")
+local Window = XorixHub:CreateWindow("XORIX HUB") --name it or idfk
 
--- 2. Initialize Required Tabs
+-- 2. Creates the tabs.
 local MainTab     = Window:CreateTab("Main")
 local CombatTab   = Window:CreateTab("Combat")
 local VisualsTab  = Window:CreateTab("Visuals")
 local SettingsTab = Window:CreateTab("Settings")
 local MiscTab     = Window:CreateTab("Misc")
 
----------------------------------------------------------
--- 1. MAIN TAB
----------------------------------------------------------
+--TABS SECTION
 MainTab:CreateSection("Main Section")
-
-MainTab:CreateSlider("WalkSpeed", 16, 250, 16, function(value)
+--Creates slider
+MainTab:CreateSlider("WalkSpeed", 16, 250, 16, function(value) --the 16, 250, 16. 16 is the Start, 250 is the end and the another 16 is the minimum
     -- Code here
 end)
 
 MainTab:CreateSlider("JumpPower", 50, 300, 50, function(value)
     -- Code here
 end)
-
+--creates Toggles
 MainTab:CreateToggle("Example Toggle", false, function(state)
     -- Code here
 end)
-
+--creates Buttons
 MainTab:CreateButton("Example Button", function()
     -- Code here
 end)
 
----------------------------------------------------------
--- 2. COMBAT TAB
----------------------------------------------------------
+
 CombatTab:CreateSection("Combat Section")
 
 CombatTab:CreateToggle("Example Combat Toggle", false, function(state)
@@ -49,9 +45,6 @@ CombatTab:CreateButton("Example Combat Button", function()
     -- Code here
 end)
 
----------------------------------------------------------
--- 3. VISUALS TAB
----------------------------------------------------------
 VisualsTab:CreateSection("Visuals Section")
 
 VisualsTab:CreateToggle("Example Visual Toggle", false, function(state)
@@ -66,9 +59,7 @@ VisualsTab:CreateButton("Example Visual Button", function()
     -- Code here
 end)
 
----------------------------------------------------------
--- 4. SETTINGS TAB
----------------------------------------------------------
+
 SettingsTab:CreateSection("Settings Section")
 
 SettingsTab:CreateToggle("Example Setting Toggle", false, function(state)
@@ -85,9 +76,7 @@ SettingsTab:CreateButton("Unload UI", function()
     end
 end)
 
----------------------------------------------------------
--- 5. MISC TAB
----------------------------------------------------------
+
 MiscTab:CreateSection("Misc Section")
 
 MiscTab:CreateToggle("Example Misc Toggle", false, function(state)
