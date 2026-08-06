@@ -142,10 +142,9 @@ function XorixHub:CreateWindow(titleText)
         Main.Visible = not Main.Visible
     end)
 
-    -- ██████  HEADER (auto‑resize height)  ██████
     local Header = Instance.new("Frame")
     Header.Name = "Header"
-    Header.Size = UDim2.new(1, 0, 0.18, 0)   -- now scales with Main
+    Header.Size = UDim2.new(1, 0, 0, 52)
     Header.BackgroundTransparency = 1
     Header.BorderSizePixel = 0
     Header.ZIndex = 2
@@ -196,7 +195,6 @@ function XorixHub:CreateWindow(titleText)
     TitleLabel.TextColor3 = Theme.TextMain
     TitleLabel.TextSize = 15
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
-    TitleLabel.TextYAlignment = Enum.TextYAlignment.Center   -- keep centered
     TitleLabel.BackgroundTransparency = 1
     TitleLabel.ZIndex = 3
     TitleLabel.Parent = Header
@@ -226,11 +224,10 @@ function XorixHub:CreateWindow(titleText)
         end
     end)
 
-    -- ██████  SIDEBAR (position and height adjusted)  ██████
     local Sidebar = Instance.new("Frame")
     Sidebar.Name = "Sidebar"
-    Sidebar.Size = UDim2.new(0, 130, 0.82, 0)        -- 1 - 0.18
-    Sidebar.Position = UDim2.new(0, 0, 0.18, 0)      -- below header
+    Sidebar.Size = UDim2.new(0, 130, 1, -52)
+    Sidebar.Position = UDim2.new(0, 0, 0, 52)
     Sidebar.BackgroundTransparency = 1
     Sidebar.BorderSizePixel = 0
     Sidebar.ZIndex = 2
@@ -261,11 +258,10 @@ function XorixHub:CreateWindow(titleText)
     TabList.Padding = UDim.new(0, 6)
     TabList.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
-    -- ██████  CONTENT AREA (position and height adjusted)  ██████
     local ContentArea = Instance.new("Frame")
     ContentArea.Name = "ContentArea"
-    ContentArea.Size = UDim2.new(1, -130, 0.82, 0)   -- width minus sidebar, height 1-0.18
-    ContentArea.Position = UDim2.new(0, 130, 0.18, 0)
+    ContentArea.Size = UDim2.new(1, -130, 1, -52)
+    ContentArea.Position = UDim2.new(0, 130, 0, 52)
     ContentArea.BackgroundTransparency = 1
     ContentArea.ZIndex = 2
     ContentArea.Parent = Main
@@ -530,86 +526,4 @@ function XorixHub:CreateWindow(titleText)
     return Window
 end
 
-local Window = XorixHub:CreateWindow("XORIX HUB")
-
-local MainTab     = Window:CreateTab("Main")
-local CombatTab   = Window:CreateTab("Combat")
-local VisualsTab  = Window:CreateTab("Visuals")
-local SettingsTab = Window:CreateTab("Settings")
-local MiscTab     = Window:CreateTab("Misc")
-
-MainTab:CreateSection("Main Section")
-
-MainTab:CreateSlider("WalkSpeed", 16, 250, 16, function(value)
-
-end)
-
-MainTab:CreateSlider("JumpPower", 50, 300, 50, function(value)
-
-end)
-
-MainTab:CreateToggle("Example Toggle", false, function(state)
-
-end)
-
-MainTab:CreateButton("Example Button", function()
-
-end)
-
-CombatTab:CreateSection("Combat Section")
-
-CombatTab:CreateToggle("Example Combat Toggle", false, function(state)
-
-end)
-
-CombatTab:CreateSlider("Example Combat Slider", 1, 100, 50, function(value)
-
-end)
-
-CombatTab:CreateButton("Example Combat Button", function()
-
-end)
-
-VisualsTab:CreateSection("Visuals Section")
-
-VisualsTab:CreateToggle("Example Visual Toggle", false, function(state)
-
-end)
-
-VisualsTab:CreateSlider("Example Visual Slider", 1, 100, 50, function(value)
-
-end)
-
-VisualsTab:CreateButton("Example Visual Button", function()
-
-end)
-
-SettingsTab:CreateSection("Settings Section")
-
-SettingsTab:CreateToggle("Example Setting Toggle", false, function(state)
-
-end)
-
-SettingsTab:CreateSlider("Example Setting Slider", 1, 100, 50, function(value)
-
-end)
-
-SettingsTab:CreateButton("Unload UI", function()
-    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("XorixHub_UI") then
-        game.Players.LocalPlayer.PlayerGui.XorixHub_UI:Destroy()
-    end
-end)
-
-MiscTab:CreateSection("Misc Section")
-
-MiscTab:CreateToggle("Example Misc Toggle", false, function(state)
-
-end)
-
-MiscTab:CreateSlider("Example Misc Slider", 1, 100, 50, function(value)
-
-end)
-
-MiscTab:CreateButton("Rejoin Server", function()
-
-end)
+return XorixHub
