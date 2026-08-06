@@ -142,9 +142,10 @@ function XorixHub:CreateWindow(titleText)
         Main.Visible = not Main.Visible
     end)
 
+    -- ██████  HEADER (auto‑resize height)  ██████
     local Header = Instance.new("Frame")
     Header.Name = "Header"
-    Header.Size = UDim2.new(1, 0, 0, 52)
+    Header.Size = UDim2.new(1, 0, 0.18, 0)   -- now scales with Main
     Header.BackgroundTransparency = 1
     Header.BorderSizePixel = 0
     Header.ZIndex = 2
@@ -195,6 +196,7 @@ function XorixHub:CreateWindow(titleText)
     TitleLabel.TextColor3 = Theme.TextMain
     TitleLabel.TextSize = 15
     TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
+    TitleLabel.TextYAlignment = Enum.TextYAlignment.Center   -- keep centered
     TitleLabel.BackgroundTransparency = 1
     TitleLabel.ZIndex = 3
     TitleLabel.Parent = Header
@@ -224,10 +226,11 @@ function XorixHub:CreateWindow(titleText)
         end
     end)
 
+    -- ██████  SIDEBAR (position and height adjusted)  ██████
     local Sidebar = Instance.new("Frame")
     Sidebar.Name = "Sidebar"
-    Sidebar.Size = UDim2.new(0, 130, 1, -52)
-    Sidebar.Position = UDim2.new(0, 0, 0, 52)
+    Sidebar.Size = UDim2.new(0, 130, 0.82, 0)        -- 1 - 0.18
+    Sidebar.Position = UDim2.new(0, 0, 0.18, 0)      -- below header
     Sidebar.BackgroundTransparency = 1
     Sidebar.BorderSizePixel = 0
     Sidebar.ZIndex = 2
@@ -258,10 +261,11 @@ function XorixHub:CreateWindow(titleText)
     TabList.Padding = UDim.new(0, 6)
     TabList.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
+    -- ██████  CONTENT AREA (position and height adjusted)  ██████
     local ContentArea = Instance.new("Frame")
     ContentArea.Name = "ContentArea"
-    ContentArea.Size = UDim2.new(1, -130, 1, -52)
-    ContentArea.Position = UDim2.new(0, 130, 0, 52)
+    ContentArea.Size = UDim2.new(1, -130, 0.82, 0)   -- width minus sidebar, height 1-0.18
+    ContentArea.Position = UDim2.new(0, 130, 0.18, 0)
     ContentArea.BackgroundTransparency = 1
     ContentArea.ZIndex = 2
     ContentArea.Parent = Main
