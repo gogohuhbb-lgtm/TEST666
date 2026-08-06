@@ -1,40 +1,51 @@
--- Fetch Xorix Hub UI Library
-local XorixHub = loadstring(game:HttpGet("https://raw.githubusercontent.com/gogohuhbb-lgtm/TEST666/refs/heads/main/Main.lua"))()
+local Window = XorixHub:CreateWindow("XORIX HUB")
 
--- 1. Create Main Window
-local Window = XorixHub:CreateWindow("XORIX HUB") --name it or idfk
+local PlayerTab   = Window:CreateTab("Player")
+local FarmingTab  = Window:CreateTab("Farming")
+local TeleportTab = Window:CreateTab("Teleports")
+local ConfigTab   = Window:CreateTab("Config")
 
--- 2. Creates the tabs.
-local MainTab     = Window:CreateTab("Main")
-local CombatTab   = Window:CreateTab("Combat")
-local VisualsTab  = Window:CreateTab("Visuals")
-local SettingsTab = Window:CreateTab("Settings")
-local MiscTab     = Window:CreateTab("Misc")
+PlayerTab:CreateSection("Movement Controls")
 
---TABS SECTION
-MainTab:CreateSection("Main Section")
---Creates slider
-MainTab:CreateSlider("WalkSpeed", 16, 250, 16, function(value) --the 16, 250, 16. 16 is the Start, 250 is the end and the another 16 is the minimum
-    -- Code here
+PlayerTab:CreateSlider("WalkSpeed Modifier", 16, 250, 16, function(value)
+
 end)
 
-MainTab:CreateSlider("JumpPower", 50, 300, 50, function(value)
-    -- Code here
-end)
---creates Toggles
-MainTab:CreateToggle("Example Toggle", false, function(state)
-    -- Code here
-end)
---creates Buttons
-MainTab:CreateButton("Example Button", function()
-    -- Code here
+PlayerTab:CreateSlider("JumpPower Modifier", 50, 300, 50, function(value)
+
 end)
 
+PlayerTab:CreateToggle("Infinite Jump Ability", false, function(state)
 
-CombatTab:CreateSection("Combat Section")
+end)
 
-CombatTab:CreateToggle("Example Combat Toggle", false, function(state)
-    -- Code here
+PlayerTab:CreateButton("Reset Character Position", function()
+
+end)
+
+FarmingTab:CreateSection("Automation Options")
+
+FarmingTab:CreateToggle("Auto Collect Items", false, function(state)
+
+end)
+
+FarmingTab:CreateSlider("Collection Radius", 5, 100, 20, function(value)
+
+end)
+
+TeleportTab:CreateSection("Location Teleports")
+
+TeleportTab:CreateButton("Teleport To Spawn", function()
+
+end)
+
+ConfigTab:CreateSection("Menu Options")
+
+ConfigTab:CreateButton("Destroy Menu UI", function()
+    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("XorixHub_UI") then
+        game.Players.LocalPlayer.PlayerGui.XorixHub_UI:Destroy()
+    end
+end)    -- Code here
 end)
 
 CombatTab:CreateSlider("Example Combat Slider", 1, 100, 50, function(value)
