@@ -14,7 +14,8 @@ local Theme = {
     TextMain = Color3.fromRGB(240, 245, 250),
     TextMuted = Color3.fromRGB(120, 135, 155),
     StrokeDark = Color3.fromRGB(28, 36, 48),
-    IconID = "rbxassetid://114044975848151"
+    IconID = "rbxassetid://114044975848151",
+    ToggleIconID = "rbxassetid://110129510947911"
 }
 
 local function CreateTween(obj, duration, props, style, dir)
@@ -68,6 +69,53 @@ function XorixHub:CreateWindow(titleText)
         end
     end)
 
+    local ToggleBtn = Instance.new("ImageButton")
+    ToggleBtn.Name = "OpenCloseToggle"
+    ToggleBtn.Size = UDim2.new(0, 46, 0, 46)
+    ToggleBtn.Position = UDim2.new(0.02, 0, 0.15, 0)
+    ToggleBtn.BackgroundColor3 = Theme.SidebarBG
+    ToggleBtn.Image = Theme.ToggleIconID
+    ToggleBtn.ScaleType = Enum.ScaleType.Fit
+    ToggleBtn.Parent = ScreenGui
+
+    Instance.new("UICorner", ToggleBtn).CornerRadius = UDim.new(0, 10)
+    local ToggleStroke = Instance.new("UIStroke", ToggleBtn)
+    ToggleStroke.Color = Theme.AccentCyan
+    ToggleStroke.Thickness = 1.5
+
+    local ToggleAspect = Instance.new("UIAspectRatioConstraint", ToggleBtn)
+    ToggleAspect.AspectRatio = 1
+    ToggleAspect.AspectType = Enum.AspectType.FitWithinMaxSize
+
+    local toggleDragging, toggleDragStart, toggleStartPos
+    local function updateToggleDrag(input)
+        local delta = input.Position - toggleDragStart
+        ToggleBtn.Position = UDim2.new(toggleStartPos.X.Scale, toggleStartPos.X.Offset + delta.X, toggleStartPos.Y.Scale, toggleStartPos.Y.Offset + delta.Y)
+    end
+
+    ToggleBtn.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            toggleDragging = true
+            toggleDragStart = input.Position
+            toggleStartPos = ToggleBtn.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    toggleDragging = false
+                end
+            end)
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if toggleDragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            updateToggleDrag(input)
+        end
+    end)
+
+    ToggleBtn.MouseButton1Click:Connect(function()
+        Main.Visible = not Main.Visible
+    end)
+
     local Header = Instance.new("Frame")
     Header.Name = "Header"
     Header.Size = UDim2.new(1, 0, 0, 52)
@@ -83,11 +131,17 @@ function XorixHub:CreateWindow(titleText)
     HeaderDivider.Parent = Header
 
     local IconFrame = Instance.new("Frame")
-    IconFrame.Size = UDim2.new(0, 36, 0, 36)
-    IconFrame.Position = UDim2.new(0, 10, 0.5, -18)
+    IconFrame.Size = UDim2.new(0.68, 0, 0.68, 0)
+    IconFrame.Position = UDim2.new(0, 10, 0.5, 0)
+    IconFrame.AnchorPoint = Vector2.new(0, 0.5)
     IconFrame.BackgroundColor3 = Theme.CardBG
     IconFrame.Parent = Header
     Instance.new("UICorner", IconFrame).CornerRadius = UDim.new(0, 8)
+
+    local IconAspect = Instance.new("UIAspectRatioConstraint", IconFrame)
+    IconAspect.AspectRatio = 1
+    IconAspect.AspectType = Enum.AspectType.FitWithinMaxSize
+    IconAspect.DominantAxis = Enum.DominantAxis.Height
 
     local IconStroke = Instance.new("UIStroke", IconFrame)
     IconStroke.Color = Theme.AccentCyan
@@ -95,8 +149,9 @@ function XorixHub:CreateWindow(titleText)
 
     local IconImage = Instance.new("ImageLabel")
     IconImage.Name = "XorixIcon"
-    IconImage.Size = UDim2.new(0, 26, 0, 26)
-    IconImage.Position = UDim2.new(0.5, -13, 0.5, -13)
+    IconImage.Size = UDim2.new(0.75, 0, 0.75, 0)
+    IconImage.Position = UDim2.new(0.5, 0, 0.5, 0)
+    IconImage.AnchorPoint = Vector2.new(0.5, 0.5)
     IconImage.BackgroundTransparency = 1
     IconImage.Image = Theme.IconID
     IconImage.ScaleType = Enum.ScaleType.Fit
